@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    {% load staticfiles %}
+    <link href="{% static "items/Content/bootstrap.css" %}" rel="stylesheet" />
+    <link href="{% static "items/Content/prettify.min.css" %}" rel="stylesheet" />
+    <link href="{% static "items/Content/morris.css"%}" rel="stylesheet" />
+    <link href="{% static "items/Content/font-awesome.css"%}" rel="stylesheet" type="text/css" />
+    <link href="{% static "items/Content/bootstrap_table.css"%}" rel="stylesheet" />
+    <link href="{% static "items/Content/bootstrap-table-filtercontrol.css" %}"rel="stylesheet" />
+    <link href="{% static "items/Content/Timepicker.css" %}"rel="stylesheet" />
+    <link href="{% static "items/Content/Calender.min.css" %}"rel="stylesheet" />
+    <link href="{% static "items/Content/jquery.bootstrap.message.css" %}"rel="stylesheet" />
+    <link href="{% static "items/Content/side-Topbar.css" %}"rel="stylesheet" />
+    <link href="{% static "items/Content/ChangeTopBarColour.min.css" %}"rel="stylesheet" />
+
+    <script src="{% static "items/Scripts/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "items/Scripts/moment.min.js"%}"></script>
+    <script src="{% static "items/Scripts/bootstrap.min.js"%}"></script>
+    <script src="{% static "items/Scripts/bootstrap-datetimepicker.min.js"%}"></script>
+    <script src="{% static "items/Scripts/jquery.bootstrap.message.js"%}"></script>
+    <script src="{% static "items/Scripts/underscore-min.js"%}"></script>
+    <script src="{% static "items/Scripts/Calender.js"%}"></script>
+    <script src="{% static "items/Scripts/raphael.2.1.0-min.js"%}"></script>
+    <script src="{% static "items/Scripts/morris.min.js"%}"></script>
+    <script src="{% static "items/Scripts/bootstrap_table.js"%}"></script>
+    <script src="{% static "items/Scripts/bootstrap-table-filtercontrol.js"%}"></script>
+    <script src="{% static "items/Scripts/jquery.validate.min.js"%}"></script>
+    <script src="{% static "items/Scripts/jquery.validate.unobtrusive.min.js"%}"></script>
+    <script src="{% static "items/Scripts/jquery.jscroll.js"%}"></script>
+    <script src="{% static "items/Scripts/xepOnline.jqPlugin.008.js"%}"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header ">
+                <h3>NCN Technologies</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <li>
+                  <a href="{%url 'voltage_view:index' %}">Index</a>
+                </li>
+                <li>
+                  <a href="{%url 'voltage_view:form' %}">Form</a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- Page Content Holder -->
+        <div id="content">
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <div id="sidebarCollapse">
+                            <h3 class="perpet white">Process Automation Pro</h3>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" />
+                                <div class="white">    <i class="fa fa-user fa-fw white "></i>User<i class="fa fa-caret-down fa-fw  "></i></div>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="~/RegisterUser/Index"><i class="fa fa-user fa-fw"></i>Register New User</a></li>
+                                    <li class="divider"></li>
+                                    {% if user.is_authenticated %}
+                                    <li>
+                                      <a href="{%url 'voltage_view:logout' %}"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                      <a href="{%url 'voltage_view:user_login' %}"><i class="fa fa-sign-in fa-fw"></i>Login</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="page" class="custom">
+                <div class="custom">
+                     {% block content %}<!-- default content text (typically empty) -->{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function caps(element) {                //to change value to uppercase
+            element.value = element.value.toUpperCase();
+        }
+        function deleteconfirm() {
+            if (confirm("Confirm to delete") == false) {
+                return false;
+            }
+            else
+                alert("Data Deleted");
+        }
+
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+
+        $('#jscroll').jscroll({
+            autoTriggerUntil: '@ViewBag.pagecount',
+            debug: "false",
+            callback: function () {
+                // Append new results to existing table
+                $('.table-bordered:last > tbody tr').detach().appendTo($('.table-bordered > tbody'));
+                // Replace existing pagination with new while keeping attached events
+                $('.pagination:first').replaceWith($('.pagination:last'));
+                // Remove the newly added 'jscroll-added' div, as well as the remaining unwrapped table on the last page
+                $('.jscroll-added,.my-list:nth(1)').remove();
+            }
+        });
+    </script>
+</body>
+</html>
+<style>
+    .white {
+        color: white;
+    }
+</style>

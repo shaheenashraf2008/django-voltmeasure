@@ -1,0 +1,24 @@
+{% extends "loggedin.html" %}
+{% block content %}
+
+<a href = "{%url 'voltage_view:form' %}">Go to view</a>
+<a href = "{%url 'admin:index' %}">Go to Admin</a>
+<table class="table table-bordered">
+    <tr>
+        <th>Voltage</th>
+        <th>Current</th>
+        <th>Power</th>
+        <th>Time Measured</th>
+        <th>Time Added</th>
+    </tr>
+    {% for item in measurements %}
+    <tr>
+        <td>{{ item.voltage| add:"55" }}</td>
+        <td>{{ item.current }}</td>
+        <td>{{ item.power }}</td>
+        <td>{{ item.time_measured | cut:"Jan" }}</td>
+        <td>{{ item.time_added }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

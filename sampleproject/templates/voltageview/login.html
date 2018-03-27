@@ -1,0 +1,17 @@
+{% extends "loggedin.html" %}
+{% block content %}
+
+<div class="jumbotron">
+  <h1>Please Login </h1>
+
+<form action="{%url 'voltage_view:user_login' %}" method="post">
+{% csrf_token %}
+<label for="username"></label>
+<input type="text" name="username" placeholder="Enter Username">
+<label for="password"></label>
+<input type="text" name="password" placeholder="Enter Password">
+<input type="submit" value="Login">
+</form>
+</div>
+
+{% endblock %}
